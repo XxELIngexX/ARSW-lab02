@@ -16,37 +16,7 @@ public class Main {
 		pft1.start();
 		pft2.start();
 
-//		Thread timerThread = new Thread(() -> {
-//			try {
-//				Thread.sleep(5000);
-//			} catch (InterruptedException e) {
-//				// Manejar la excepción
-//			}
-//            try {
-//                pft.wait();
-//				pft1.wait();
-//				pft2.wait();
-//				cont.addAndGet(pft.getPrimes().size());
-//				cont.addAndGet(pft1.getPrimes().size());
-//				cont.addAndGet(pft2.getPrimes().size());
-//				System.out.println("se han encontrado: "+cont+"numeros primos" );
-//				// Esperar a que el usuario presione Enter
-//				System.out.print("Presione Enter para continuar...");
-//				Scanner scanner = new Scanner(System.in);
-//				scanner.nextLine();
-//
-//				pft.notifyAll();
-//				pft1.notifyAll();
-//				pft2.notifyAll();
-//
-//
-//
-//			} catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
-//
-//		});
-//		timerThread.start();
+
 
 
 
