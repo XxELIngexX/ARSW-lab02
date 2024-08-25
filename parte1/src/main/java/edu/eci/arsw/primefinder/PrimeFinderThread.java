@@ -10,7 +10,7 @@ public class PrimeFinderThread extends Thread{
 	int a,b;
 	
 	private List<Integer> primes=new LinkedList<Integer>();
-	private Boolean pause = false;
+	volatile private Boolean pause = false;
 	private Object lock = new Object();
 
 
@@ -22,13 +22,11 @@ public class PrimeFinderThread extends Thread{
 @Override
 
 public void run() {
-	System.out.println("Ejecutando " + Thread.currentThread().getName());
 
 		for (int i=a;i<b;i++){
 			synchronized (lock) {
 			while (pause){
 				try {
-					System.out.println("se detuvo: "+this.getName());
 					// Detener el hilo con wait()
 					lock.wait();
 
@@ -36,6 +34,7 @@ public void run() {
 					throw new RuntimeException(e);
 				}
 			}
+
 			if (isPrime(i)) {
 				primes.add(i);
 			}
@@ -66,7 +65,9 @@ public void run() {
 
 	public void resumeThread() {
 		pause = false;
-		notifyAll(); // Despertar a todos los hilos que están en espera
+		synchronized (lock) {
+			lock.notify(); // Despierta al hilo
+		}
 
 	}
 

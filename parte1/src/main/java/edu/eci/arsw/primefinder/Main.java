@@ -16,7 +16,7 @@ public class Main {
 
 	public static void main(String[] args) throws InterruptedException, IOException {
 
-//		AtomicInteger cont =new AtomicInteger(0);
+		AtomicInteger cont =new AtomicInteger(0);
 
 
 
@@ -28,26 +28,53 @@ public class Main {
 		pft.start();
 		pft1.start();
 		pft2.start();
+		Scanner scanner = new Scanner(System.in);
+		while (pft.isAlive() || pft1.isAlive() || pft2.isAlive()) {
+			try {
+				Thread.sleep(5000);
+				pft.pause();
+				pft1.pause();
+				pft2.pause();
 
-		Thread.sleep(5000);
-		System.out.println("Se detiene.");
-		pft.pause();
-		pft1.pause();
-		pft2.pause();
+				cont.addAndGet(pft.getPrimes().size());
+				cont.addAndGet(pft1.getPrimes().size());
+				cont.addAndGet(pft2.getPrimes().size());
 
-//		System.out.print("Presione Enter para continuar...");
-//		System.in.read(); // Leer un byte de la entrada estándar
+				System.out.println("ya pasaron 5 segundos y se han encontrado: "+ cont);
+				System.out.println("-----------------------------------------");
 
 
+				System.out.println("*Hilos pausados*");
+				System.out.print("Presione Enter para reanudar: ");
+
+				scanner.nextLine();
+
+
+				pft.resumeThread();
+				pft1.resumeThread();
+				pft2.resumeThread();
+			} catch (InterruptedException e) {
+				Thread.currentThread().interrupt();
+			}
+
+
+		}
 
 
 
 
-//
-//		cont.addAndGet(pft.getPrimes().size());
-//		cont.addAndGet(pft1.getPrimes().size());
-//		cont.addAndGet(pft2.getPrimes().size());
-//		System.out.println("ya pasaron 5 segundos y hay: "+ cont);
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
